@@ -8,6 +8,7 @@
 
 * Python 2.7
 * pip install websocket-client
+* Linux命令行（Linux\Cygwin）
 
 # 版本
 
