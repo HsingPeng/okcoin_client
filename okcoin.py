@@ -50,7 +50,7 @@ class OkCoin:
 
 
 def sigint_handler(signum,frame):
-    print "exit"
+    print("exit")
     sys.exit()
 
 
