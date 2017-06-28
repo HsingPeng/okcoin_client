@@ -1,4 +1,5 @@
 import sys
+import signal
 import websocket
 import json
 import time
@@ -21,16 +22,20 @@ class OkCoin:
         channel = deJson[0]['channel']
         if channel == 'ok_sub_spotcny_eth_ticker':
             self.freshTicker(deJson)
+        else:
+            pass
+            #print(msg)
 
     def on_error(self, ws, error):
         print(error)
 
     def on_close(self, ws):
-        print("#### closed ###")
+        pass
+        #print("#### closed ###")
 
     def on_open(self, ws):
         ws.send("{'event':'addChannel','channel':'ok_sub_spotcny_eth_ticker'}")
-        print('### opening ###')
+        #print('### opening ###')
 
     def connect(self):
         websocket.enableTrace(False)
@@ -39,8 +44,19 @@ class OkCoin:
                                     on_error = self.on_error,
                                     on_close = self.on_close)
         self.ws.on_open = self.on_open
-        self.ws.run_forever()
+        while True:
+            sys.stdout.write('\033[1A\033[K')
+            self.ws.run_forever()
+
+
+def sigint_handler(signum,frame):
+    print "exit"
+    sys.exit()
+
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, sigint_handler)
+    print('### start ###')
+    print('### start ###')
     okcoin = OkCoin()
     okcoin.connect()
