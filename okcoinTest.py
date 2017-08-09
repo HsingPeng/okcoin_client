@@ -1,3 +1,5 @@
+#!python
+
 import okcoin
 import json
 
